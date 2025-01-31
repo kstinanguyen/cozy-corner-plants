@@ -1,0 +1,30 @@
+main {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  place-items: center;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.box {
+  padding: 10px;
+  border: 1px solid #d3d3d3;
+  border-radius: 24px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(211, 211, 211, .4);
+  height: 300px;
+  width: 400px;
+  cursor: pointer;
+}
+
+.plant {
+  height: fit-content;
+}

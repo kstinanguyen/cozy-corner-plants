@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.plant {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 100%;
+}
+
+.phrase-popup {
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 10; 
+  font-size: 8px;
+  font-family: 'Press Start 2P', monospace;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 0, 0, 0.1); 
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out; 
+  opacity: 0; 
+}
+
+.plant:hover .phrase-popup {
+  opacity: 1; 
+  transform: translateX(-50%) translateY(-5px);
+}
+
+.phrase-popup p {
+  margin: 0;
+}
+
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}

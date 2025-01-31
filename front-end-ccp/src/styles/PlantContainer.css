@@ -1,0 +1,21 @@
+.plant-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 3px 6px;
+}
+
+.plant-container > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.plant-container select {
+  margin-bottom: 10px;
+  font-family: 'Press Start 2P', monospace;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

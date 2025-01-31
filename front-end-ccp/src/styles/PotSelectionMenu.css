@@ -1,0 +1,19 @@
+.pot-selection-menu {
+  margin-bottom: 20px;
+}
+
+.pot-options button {
+  margin: 5px;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.pot-options button:hover {
+  opacity: 0.8;
+}
+
+.selected-pot {
+  margin-top: 10px;
+  padding: 5px;
+}
