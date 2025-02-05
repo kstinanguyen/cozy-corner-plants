@@ -114,7 +114,7 @@ const PlantContainer = () => {
                 key={`plant-${plantNumber}`}
                 availableSVGs={getFilteredSVGs(plantNumber, 1)}
                 growthStage={0}
-                phrase={[phrases[plantNumber - 1] || ""]}
+                phrase={phrases}
                 plantNumber={plantNumber}
                 selectedColor={selectedPotType[plantNumber]}
               />

@@ -2,7 +2,7 @@ import { useState } from "react";
 import PlantContainer from "./PlantContainer";
 
 const PotSelectionMenu = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="pot-selection-menu">
