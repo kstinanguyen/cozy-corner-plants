@@ -1,11 +1,19 @@
-import React from "react";
+import { useState } from "react";
 import PlantContainer from "./PlantContainer";
 
 const PotSelectionMenu = () => {
+  const [isOpen, setIsOpen] = useState(true);
+
   return (
-    <>
-      <PlantContainer />
-    </>
+    <div className="pot-selection-menu">
+      <h5
+        onClick={() => setIsOpen(!isOpen)}
+        className="dropdown-header"
+      >
+        Cozy Corner Options <span className="dropdown-arrow">{isOpen ? "▼" : "▲"}</span>
+      </h5>
+      {isOpen && <PlantContainer />}
+    </div>
   );
 };
 

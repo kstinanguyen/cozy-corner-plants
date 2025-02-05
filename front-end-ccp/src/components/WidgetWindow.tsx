@@ -1,71 +1,79 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import '../styles/WidgetWindow.css';
-// import PlantContainer from './PlantContainer';
 import PotSelectionMenu from './PotSelectionMenu';
 
 function WidgetWindow() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const boxRef = useRef<HTMLDivElement>(null)
-
+  const boxRef = useRef<HTMLDivElement>(null);
   const isClicked = useRef<boolean>(false);
+  const coords = useRef({ startX: 0, startY: 0, lastX: 0, lastY: 0 });
 
-  const coords = useRef<{
-    startX: number,
-    startY: number,
-    lastX: number,
-    lastY: number
-  }>({
-    startX: 0,
-    startY: 0,
-    lastX: 0,
-    lastY: 0
-  })
-  
+  const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+
   useEffect(() => {
-    if (!boxRef.current || !containerRef.current) return;
+    const handleResize = () => setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (!boxRef.current) return;
     const box = boxRef.current;
-    const container = containerRef.current;
+
+    const boxWidth = box.offsetWidth || 200;
+    const boxHeight = box.offsetHeight || 100;
+
+    const initialX = windowSize.width - boxWidth - 20;
+    const initialY = windowSize.height - boxHeight - 20;
+
+    box.style.left = `${initialX}px`;
+    box.style.top = `${initialY}px`;
+
+    coords.current.lastX = initialX;
+    coords.current.lastY = initialY;
 
     const onMouseDown = (e: MouseEvent) => {
       isClicked.current = true;
       coords.current.startX = e.clientX;
       coords.current.startY = e.clientY;
-    }
+    };
 
     const onMouseUp = () => {
       isClicked.current = false;
       coords.current.lastX = box.offsetLeft;
       coords.current.lastY = box.offsetTop;
-    }
+    };
 
     const onMouseMove = (e: MouseEvent) => {
       if (!isClicked.current) return;
 
-      const nextX = e.clientX - coords.current.startX + coords.current.lastX;
-      const nextY = e.clientY - coords.current.startY + coords.current.lastY;
+      const maxWidth = window.innerWidth - box.offsetWidth;
+      const maxHeight = window.innerHeight - box.offsetHeight;
 
-      box.style.top = `${nextY}px`;
+      let nextX = e.clientX - coords.current.startX + coords.current.lastX;
+      let nextY = e.clientY - coords.current.startY + coords.current.lastY;
+
+      // Restrict within bounds
+      nextX = Math.max(0, Math.min(nextX, maxWidth));
+      nextY = Math.max(0, Math.min(nextY, maxHeight));
+
       box.style.left = `${nextX}px`;
-    }
+      box.style.top = `${nextY}px`;
+    };
 
     box.addEventListener('mousedown', onMouseDown);
-    box.addEventListener('mouseup', onMouseUp);
-    container.addEventListener('mousemove', onMouseMove);
-    container.addEventListener('mouseleave', onMouseUp);
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
 
-    const cleanup = () => {
+    return () => {
       box.removeEventListener('mousedown', onMouseDown);
-      box.removeEventListener('mouseup', onMouseUp);
-      container.removeEventListener('mousemove', onMouseMove);
-      container.removeEventListener('mouseleave', onMouseUp);
-    }
-
-    return cleanup;
-  }, [])
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    };
+  }, [windowSize]);
 
   return (
     <main>
-      <div ref={containerRef} className="container">
+      <div className="container">
         <div ref={boxRef} className="box">
           <PotSelectionMenu />
         </div>

@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Plant from './Plant';
 import '../styles/PlantContainer.css';
+import { plantPotColors } from '../utils/plantData';
+import { useFetchPhrases } from '../utils/useFetchPhrases';
 
 // S1 Brown pot
 import { ReactComponent as S1pBrown } from '../assets/s1p_brown.svg';
@@ -43,26 +45,6 @@ import { ReactComponent as S3mWhite } from '../assets/s3m_white.svg';
 import { ReactComponent as S3fWhite } from '../assets/s3f_white.svg';
 
 
-async function fetchMotivationalPhrases(): Promise<string[]> {
-  try {
-    const response = await fetch('http://localhost:3000/api/phrases');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    return data.phrases.map((phraseObj: { phrase: string }) => phraseObj.phrase);
-  } catch (error) {
-    console.error('Failed to fetch motivational phrases:', error);
-    return [];
-  }
-}
-
-const plantPotColors: Record<number, string[]> = {
-  1: ["brown", "red", "blue"],
-  2: ["green", "purple"],
-  3: ["clay", "cobalt", "white"],
-};
-
 const plantOptions = [
   { stage: 1, color: "brown", svg: <S1pBrown /> },
   { stage: 1, color: "red", svg: <S1pRed /> },
@@ -90,27 +72,19 @@ const plantOptions = [
   { stage: 3, color: "white", svg: <S3fWhite /> },
 ];
 
-const getFilteredSVGs = (plantNumber: number) => {
+const getFilteredSVGs = (plantNumber: number, stage: number) => {
   return plantOptions.filter((svg) =>
-    plantPotColors[plantNumber].includes(svg.color)
+    plantPotColors[plantNumber].includes(svg.color) && svg.stage === stage
   );
 };
 
 const PlantContainer = () => {
-  const [phrases, setPhrases] = useState<string[]>([]);
+  const phrases = useFetchPhrases();
   const [selectedPotType, setSelectedPotType] = useState<Record<number, string>>({
     1: plantPotColors[1][0], 
     2: plantPotColors[2][0], 
     3: plantPotColors[3][0], 
   });
-
-  useEffect(() => {
-    const loadPhrases = async () => {
-      const fetchedPhrases = await fetchMotivationalPhrases();
-      setPhrases(fetchedPhrases);
-    };
-    loadPhrases();
-  }, []);
 
   const handlePotTypeChange = (plantNumber: number, color: string) => {
     setSelectedPotType((prevSelected) => ({
@@ -121,35 +95,35 @@ const PlantContainer = () => {
 
   return (
     <div className="plant-container">
-    {phrases.length > 0 && (
-      <>
-        {[1, 2, 3].map((plantNumber) => ( 
-          <div key={plantNumber}> 
-            <select
-              id={`pot-type-${plantNumber}`}
-              value={selectedPotType[plantNumber]}
-              onChange={(e) => handlePotTypeChange(plantNumber, e.target.value)}
-            >
-              {plantPotColors[plantNumber].map((color) => (
-                <option key={color} value={color}>
-                  {color}
-                </option>
-              ))}
-            </select>
-            <Plant
-              key={`plant-${plantNumber}-stage-${0}`}
-              availableSVGs={getFilteredSVGs(plantNumber)}
-              growthStage={0}
-              phrase={phrases}
-              plantNumber={plantNumber}
-              selectedColor={selectedPotType[plantNumber]}
-            />
-          </div>
-        ))}
-      </>
-    )}
-  </div>
-);
+      {phrases.length > 0 && (
+        <>
+          {[1, 2, 3].map((plantNumber) => (
+            <div key={plantNumber}>
+              <select
+                id={`pot-type-${plantNumber}`}
+                value={selectedPotType[plantNumber]}
+                onChange={(e) => handlePotTypeChange(plantNumber, e.target.value)}
+              >
+                {plantPotColors[plantNumber].map((color) => (
+                  <option key={color} value={color}>
+                    {color}
+                  </option>
+                ))}
+              </select>
+              <Plant
+                key={`plant-${plantNumber}`}
+                availableSVGs={getFilteredSVGs(plantNumber, 1)}
+                growthStage={0}
+                phrase={[phrases[plantNumber - 1] || ""]}
+                plantNumber={plantNumber}
+                selectedColor={selectedPotType[plantNumber]}
+              />
+            </div>
+          ))}
+        </>
+      )}
+    </div>
+  );
 };
 
 export default PlantContainer;
