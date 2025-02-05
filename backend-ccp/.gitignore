@@ -17,3 +17,6 @@ build/
 # System files
 .DS_Store
 Thumbs.db
+
+# Ignore coverage reports
+coverage/
