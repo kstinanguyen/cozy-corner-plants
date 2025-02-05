@@ -3,6 +3,7 @@ main {
   width: 100vw;
   display: grid;
   place-items: center;
+  background-color: transparent;
 }
 
 .container {
