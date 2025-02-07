@@ -8,7 +8,7 @@ router.post('/phrases', async (req, res) => {
   try {
     const phrases = await generateMotivationalPhrases();
     await saveMotivationalPhrases(phrases);
-    res.json({ message: 'Phrases saved successfully!', phrases });
+    res.status(200).json({ message: 'Phrases saved successfully!', phrases });
   } catch (error) {
     console.log('Error saving phrases:', error);
     res.status(500).json({ error: 'Failed to save phrases.' });

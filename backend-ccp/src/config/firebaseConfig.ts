@@ -1,9 +1,9 @@
 import admin from 'firebase-admin';
 import dotenv from 'dotenv';
 
-dotenv.config(); // Load environment variables
+dotenv.config();
 
-// Initialize Firebase Admin SDK
+
 const firebaseConfig = {
   type: process.env.FIREBASE_TYPE,
   project_id: process.env.FIREBASE_PROJECT_ID,

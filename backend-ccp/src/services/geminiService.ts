@@ -1,12 +1,22 @@
 import { getMotivationalPhrasesModel } from "../models/geminiModels";
 import { saveMotivationalPhrases } from './firebaseService';
+import { getTestMotivationalPhrases } from './testData';
 
-export const updateMotivationalPhrases = async () => {
+export const updateMotivationalPhrases = async (useTestData = false) => {
   try {
-      const newPhrases = await generateMotivationalPhrases();
-      await saveMotivationalPhrases(newPhrases);
+    let newPhrases;
+
+    if (useTestData) {
+      newPhrases = getTestMotivationalPhrases(); // Use test data
+      console.log("Using test motivational phrases.");
+    } else {
+      newPhrases = await generateMotivationalPhrases(); // Call Gemini API
+      console.log("Using Gemini-generated motivational phrases.");
+    }
+
+    await saveMotivationalPhrases(newPhrases);
   } catch (error) {
-      console.error("Error updating motivational phrases:", error);
+    console.error("Error updating motivational phrases:", error);
   }
 };
 
@@ -45,6 +55,11 @@ export const generateMotivationalPhrases = async () => {
 }
 
 const sixHours = 6 * 60 * 60 * 1000;
-setInterval(updateMotivationalPhrases, sixHours);
 
-updateMotivationalPhrases();
+// Test data:
+updateMotivationalPhrases(true); // Call with true to use test data
+setInterval(() => updateMotivationalPhrases(true), sixHours);
+
+// Gemini:
+// updateMotivationalPhrases();
+// setInterval(updateMotivationalPhrases, sixHours);
