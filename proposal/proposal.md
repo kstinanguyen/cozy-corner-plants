@@ -10,33 +10,47 @@
 
 ## Learning Goals
   * Learn front-end development
-  * Learn to use Google Firebase
-  * Learn to use AI API
+    * Mastering React, TypeScript
+    * UI/UX Design
+  * Learn how to use and integrate Google Firebase
+    * Managing data flow
+    * Synchronizing state
+    * Integrating Firebase Realtime Database with frontend
+  * Learn how to use and integrate AI APIs
+    * Implementing AI-powered features (Google Gemini - motivational phrase generation)
+    * Connecting app to APIs for dynamic content
+  * Develop a Chrome extension
+    * Understanding the overall process of packaging and deploying a web app as a browser extension
+    * Learn to work with extension-specific APIs and setups
+  * Explore full-stack workflows
+    * Learn to connect frontend to backend services and managing state persistence between components
 
 ## Project Description
-  * Cozy Corner Plants is a Google Chrome Extension that brings the joys of indoor plants to a cozy corner of a user's browser. It provides a customizable shelf in a corner of the browser window where users can select, display, and grow several pixelized succulents. When hovering over each succulent, an uplifting message will be displayed -- these messages aim to provide positivity and encouragement throughout the day when the user needs a little pick me up.
+  * Cozy Corner Plants is a Google Chrome Extension designed to bring a touch of nature and motivation to your browser. It features a collection of interactive pixel plants that grow through different stages as you click on them, each displaying motivational phrases on hover. Users are able to customize their plants by selecting different colored pots, creating a personalized and fun plant collection. The extension uses React and TypeScript for its frontend, integrates with Google Firebase for backend services, and generates AI-powered motivational phrases. With interactive elements, Cozy Corner Plants aims to offer an engaging, dynamic user experience that brings comfort and motivation right in your browser.
 
 ## Project Type
   * Google Chrome extension
 
 ## Main Front-end Technology
-  * Typescript
+  * React with TypeScript
 
 ## Additional Front-end Technologies
-  * Pixel assets
-    * https://www.pixilart.com/draw (making my own)
+  * CSS
+  * Vite
+  * SVG
 
 ## Main Back-end Technology
   * Google Firebase
   
 ## Additional Back-end Technologies
-  * Google Gemini API
+  * Express.js
 
 ## Other Technologies
-  * N/A
+  * AI integration: Google Gemini API
 
 ## Deployment Technologies
-  * Deployed as a Google Chrome Extension through the Chrome Web Store
+  * Frontend: Deployed as a Google Chrome Extension through the Chrome Web Store
+  * Backend: Deployed on Render
 
 ## Wireframes
   * [Wireframe](https://www.figma.com/design/9iUZXvXjh0L3a204U32lXz/Cozy-Corner-Plants?node-id=1-423&t=4JFIDXTzVo4pQ1M6-4)
