@@ -33,7 +33,8 @@
 
 ### Frontend & Backend Setup:
 
-Detailed instructions for setting up the frontend and backend can be found in their respective repositories:
+Since this is a Google Chrome extension, it will be available on the Chrome Web Store. The URL will be provided once it's approved!
+For local development, detailed instructions for setting up the frontend and backend can be found in their respective repositories:
 
 - **Frontend Setup:** [Frontend Repository](https://github.com/kstinanguyen/chrome-extension-cozy-corner-plants)
 - **Backend Setup:** [Backend Repository](https://github.com/kstinanguyen/cozy-corner-plants-backend)
